@@ -1,19 +1,28 @@
 package com.trybe.java.regraprogressao;
 
+/**
+ * Representa uma atividade com nome, peso e nota.
+ */
+
 public class Atividade {
   private String nome;
   private int peso;
-  private double nota; // Alteração para double
+  private double nota;
 
   /**
-   * Lint horrível.
+   * Obtém o nome da atividade.
+   *
    */
-
   public Atividade(String nome, int peso, double nota) {
     this.nome = nome;
     this.peso = peso;
     this.nota = nota;
   }
+
+  /**
+   * Obtém o nome.
+   * @return.
+   */
 
   public String getNome() {
     return nome;
@@ -27,6 +36,5 @@ public class Atividade {
     return nota;
   }
 
-  public void add(Atividade atividade) {
-  }
+  // Removido o método add(Atividade atividade) pois não está sendo utilizado.
 }
