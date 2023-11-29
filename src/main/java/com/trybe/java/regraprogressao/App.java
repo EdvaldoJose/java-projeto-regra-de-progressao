@@ -1,59 +1,56 @@
 package com.trybe.java.regraprogressao;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-
 /**
- * Classe principal do programa que realiza o cadastro de atividades,
- * calcula a nota final e informa o resultado.
+ * App.
  */
 
 public class App {
-  ArrayList<Atividade> atividades = new ArrayList<Atividade>();
 
   /**
-   * atividade.
-   * verifica.
+   * Metodo main.
    */
-
   public static void main(String[] args) {
-    App app = new App();
-    app.cadastrarAtividade();
-
-    Verifica.somaPesos(app.atividades);
-
-    Calcular calcular = new Calcular(app.atividades);
-    final double notaTotal = calcular.calcularNotas();
-
-    Informa.resultado(notaTotal);
-  }
-
-  private Scanner novoScanner() {
-    return new Scanner(System.in);
-  }
-
-  /**
-   * Cadastra atividades com base nas entradas do usuário.
-   */
-
-  private void cadastrarAtividade() {
-    Scanner scanner = novoScanner();
+    Scanner scanner = new Scanner(System.in);
     System.out.println("Digite a quantidade de atividades para cadastrar:");
+
     int quantidadeAtividades = Integer.parseInt(scanner.nextLine());
+    int pesoTotal = 0;
+    int pontuacaoTotal = 0;
 
-    for (int i = 0; i < quantidadeAtividades; i++) {
-      System.out.println("Digite o nome da atividade " + (i + 1) + ":");
-      String nome = scanner.nextLine();
+    // Loop para cadastrar as atividades
+    for (int i = 1; i <= quantidadeAtividades; i += 1) {
+      System.out.printf("Digite o nome da atividade %s:%n", i);
+      String nomeAtividade = scanner.nextLine();
 
-      System.out.println("Digite o peso da atividade " + (i + 1) + ":");
-      int peso = Integer.parseInt(scanner.nextLine());
+      System.out.printf("Digite o peso da atividade %s:%n", i);
+      int pesoAtividade = Integer.parseInt(scanner.nextLine());
+      pesoTotal += pesoAtividade;
 
-      System.out.println("Digite a nota obtida para " + nome + ":");
-      double nota = Double.parseDouble(scanner.nextLine());
-
-      Atividade atividade = new Atividade(nome, peso, nota);
-      atividades.add(atividade);
+      System.out.printf("Digite a nota obtida para %s:%n", nomeAtividade);
+      int notaAtividade = Integer.parseInt(scanner.nextLine());
+      pontuacaoTotal += (pesoAtividade * notaAtividade);
     }
+
     scanner.close();
+
+    double resultado = (double) pontuacaoTotal / pesoTotal;
+
+    // Verifica se a soma dos pesos é diferente de 100
+    if (pesoTotal < 100) {
+      System.out.println("A soma dos pesos é diferente de 100!");
+    } else {
+
+      // Verifica se o resultado é maior ou igual a 85
+      if (resultado >= 85) {
+        System.out.printf("Parabéns! Você alcançou %s%%!"
+            + " E temos o prazer de informar que você obteve aprovação!%n", resultado);
+
+      } else {
+        System.out.printf("Lamentamos informar que, com base na sua pontuação"
+            + " alcançada neste período, %s%%!"
+            + " você não atingiu a pontuação mínima necessária para sua aprovação.%n", resultado);
+      }
+    }
   }
 }
